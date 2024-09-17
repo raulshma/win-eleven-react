@@ -1,4 +1,4 @@
-import { ChevronUpIcon } from "lucide-react";
+import { ChevronUpIcon } from "@radix-ui/react-icons";
 
 function TaskbarRight() {
   return (
@@ -14,7 +14,7 @@ function TaskbarRight() {
 function TrayIcons() {
   return (
     <>
-      <ChevronUpIcon className="h-5 w-5"/>
+      <ChevronUpIcon className="h-5 w-5" />
     </>
   );
 }
