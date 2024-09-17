@@ -1,3 +1,4 @@
+import "./app.css"
 import { BackgroundWallpaper } from "@/components/desktop/BackgroundWallpaper";
 import Taskbar from "./components/desktop/Taskbar";
 import StartMenu from "./components/common/StartMenu";
@@ -5,76 +6,42 @@ import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useStartMenuStore } from "./stores/start-menu-store";
 import { ContextMenu } from "@radix-ui/react-context-menu";
 import {
-  ContextMenuCheckboxItem,
   ContextMenuContent,
   ContextMenuItem,
-  ContextMenuLabel,
-  ContextMenuRadioGroup,
-  ContextMenuRadioItem,
-  ContextMenuSeparator,
   ContextMenuShortcut,
-  ContextMenuSub,
-  ContextMenuSubContent,
-  ContextMenuSubTrigger,
   ContextMenuTrigger,
 } from "./components/ui/context-menu";
+import { FaDisplay } from "react-icons/fa6"; import { MdScreenshotMonitor } from "react-icons/md";
 
 function App() {
   const startOpen = useStartMenuStore((state) => state.isModalOpen);
   const [parent] = useAutoAnimate(/* optional config */);
   return (
     <ContextMenu>
-      <ContextMenuTrigger className="min-h-full min-w-full relative">
+      <ContextMenuTrigger className="min-h-full min-w-full relative"><ContextMenuContent className="w-64 bg-white">
+        <ContextMenuItem inset onClick={() => window.location.reload()}>
+          Reload
+          <ContextMenuShortcut>⌘R</ContextMenuShortcut>
+        </ContextMenuItem>
+        <ContextMenuItem inset>
+          Info
+        </ContextMenuItem>
+        <ContextMenuItem inset>
+          Display
+          <ContextMenuShortcut><FaDisplay /></ContextMenuShortcut>
+        </ContextMenuItem>
+        <ContextMenuItem inset>
+          Personalized
+          <ContextMenuShortcut><MdScreenshotMonitor /></ContextMenuShortcut>
+        </ContextMenuItem>
+      </ContextMenuContent>
         <div className="min-h-full min-w-full relative" ref={parent}>
           <Taskbar />
           {startOpen && <StartMenu />}
           <BackgroundWallpaper />
-        </div>
-      </ContextMenuTrigger>
+        </div></ContextMenuTrigger>
+    </ContextMenu >
 
-      <ContextMenuContent className="w-64">
-        <ContextMenuItem inset>
-          Back
-          <ContextMenuShortcut>⌘[</ContextMenuShortcut>
-        </ContextMenuItem>
-        <ContextMenuItem inset disabled>
-          Forward
-          <ContextMenuShortcut>⌘]</ContextMenuShortcut>
-        </ContextMenuItem>
-        <ContextMenuItem inset>
-          Reload
-          <ContextMenuShortcut>⌘R</ContextMenuShortcut>
-        </ContextMenuItem>
-        <ContextMenuSub>
-          <ContextMenuSubTrigger inset>More Tools</ContextMenuSubTrigger>
-          <ContextMenuSubContent className="w-48">
-            <ContextMenuItem>
-              Save Page As...
-              <ContextMenuShortcut>⇧⌘S</ContextMenuShortcut>
-            </ContextMenuItem>
-            <ContextMenuItem>Create Shortcut...</ContextMenuItem>
-            <ContextMenuItem>Name Window...</ContextMenuItem>
-            <ContextMenuSeparator />
-            <ContextMenuItem>Developer Tools</ContextMenuItem>
-          </ContextMenuSubContent>
-        </ContextMenuSub>
-        <ContextMenuSeparator />
-        <ContextMenuCheckboxItem checked>
-          Show Bookmarks Bar
-          <ContextMenuShortcut>⌘⇧B</ContextMenuShortcut>
-        </ContextMenuCheckboxItem>
-        <ContextMenuCheckboxItem>Show Full URLs</ContextMenuCheckboxItem>
-        <ContextMenuSeparator />
-        <ContextMenuRadioGroup value="pedro">
-          <ContextMenuLabel inset>People</ContextMenuLabel>
-          <ContextMenuSeparator />
-          <ContextMenuRadioItem value="pedro">
-            Pedro Duarte
-          </ContextMenuRadioItem>
-          <ContextMenuRadioItem value="colm">Colm Tuite</ContextMenuRadioItem>
-        </ContextMenuRadioGroup>
-      </ContextMenuContent>
-    </ContextMenu>
   );
 }
 
