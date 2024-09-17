@@ -1,0 +1,77 @@
+.taskbar {
+    position: absolute;
+    height: 48px;
+    left: 0px;
+    right: 0px;
+    bottom: 1px;
+    background: url(textures/NoiseAsset_256.png), rgba(243, 243, 243, 0.9);
+    background-blend-mode: normal, luminosity;
+    backdrop-filter: blur(4em);
+    border-top: 1px solid var(--taskbar-border);
+}
+
+.background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    /* Full width */
+    height: 100vh;
+    /* Full height */
+    background-size: cover;
+    /* Cover the entire area */
+    background-position: center;
+    /* Center the background image */
+    transition: background-image 0.5s ease-in-out;
+    /* Smooth transition */
+    z-index: -10;
+    /* Send the background behind all other elements */
+}
+
+.taskbar-icon {}
+
+.win-btn {
+    /* all: unset; */
+    cursor: pointer;
+    position: relative;
+}
+
+.win-btn .win-btn-active {
+    all: unset;
+    position: absolute;
+    bottom: 0;
+    width: 6px;
+    height: 3px;
+    border-radius: 4px;
+    background-color: #a3a3a3;
+}
+
+.win-btn .win-btn-active-fg {
+    width: 12px;
+    background-color: var(--window-blue);
+}
+
+.start-menu {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 442px;
+    height: 526px;
+    left: calc(50% - 442px / 2);
+    bottom: 60px;
+
+    /* Light/Shadow - Shell */
+    background: url(textures/NoiseAsset_256.png), rgba(243, 243, 243, 0.96);
+    background-blend-mode: normal, luminosity;
+    filter: drop-shadow(0px 32px 64px rgba(0, 0, 0, 0.1876)) drop-shadow(0px 2px 21px rgba(0, 0, 0, 0.1474));
+    border-radius: 8px;
+}
+
+.taskbar-app svg {
+    @apply h-6 w-6;
+}
+
+.startmenu-app {
+    @apply h-8 w-8;
+}

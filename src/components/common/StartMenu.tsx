@@ -64,14 +64,12 @@ const SearchInput = ({
       <input
         autoFocus
         type="text"
-        className="w-full pl-10 pr-1 py-1 border border-gray-300 rounded-full focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 shadow-sm text-gray-700 placeholder-gray-400 bg-white outline-none focus:outline-none"
+        className="w-full text-xs pl-10 pr-1 py-1 border border-gray-300 rounded-full focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 shadow-sm text-gray-700 placeholder-gray-400 bg-white outline-none focus:outline-none"
         placeholder={placeholder}
         defaultValue={defaultValue}
         onKeyDown={(e) => {
-          console.log({ e });
           if (e.key === "Enter" && onSearch) {
             const target = e.target as HTMLInputElement;
-            console.log({ [e.key]: target });
             onSearch(target.value);
           }
         }}
@@ -151,21 +149,19 @@ const Footer = () => {
       <div className="pr-5">
         <DropdownMenu>
           <DropdownMenuTrigger>
-            <Button variant="ghost" size="icon" className="">
-              <RiShutDownLine className="w-4 h-4" />
-            </Button>
+            <RiShutDownLine className="w-4 h-4" />
           </DropdownMenuTrigger>
           <DropdownMenuContent>
-            <DropdownMenuItem className="hover:bg-white hover:bg-opacity-50 rounded-lg cursor-pointer">
+            <DropdownMenuItem className="rounded-lg cursor-pointer">
               Lock
             </DropdownMenuItem>
-            <DropdownMenuItem className="hover:bg-white hover:bg-opacity-50 rounded-lg cursor-pointer">
+            <DropdownMenuItem className="rounded-lg cursor-pointer">
               Sleep
             </DropdownMenuItem>
-            <DropdownMenuItem className="hover:bg-white hover:bg-opacity-50 rounded-lg cursor-pointer">
+            <DropdownMenuItem className="rounded-lg cursor-pointer">
               Shutdown
             </DropdownMenuItem>
-            <DropdownMenuItem className="hover:bg-white hover:bg-opacity-50 rounded-lg cursor-pointer">
+            <DropdownMenuItem className="rounded-lg cursor-pointer">
               Restart
             </DropdownMenuItem>
           </DropdownMenuContent>
