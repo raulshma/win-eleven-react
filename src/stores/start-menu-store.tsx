@@ -11,9 +11,12 @@ interface ModalState {
   filterPinnedItems: (value: string) => void;
 }
 
-const useStartMenuStore = create<ModalState>((set) => ({
+const useStartMenuStore = create<ModalState>()( (set) => ({
   isModalOpen: false,
-  toggleModal: () => set((state) => ({ isModalOpen: !state.isModalOpen })),
+  toggleModal: () =>
+    set((state: { isModalOpen: boolean }) => ({
+      isModalOpen: !state.isModalOpen,
+    })),
   closeModal: () => set({ isModalOpen: false }),
   pinnedApps: getApplications().filter((app) => app.startPinned === true),
   pinnedAppsFiltered: getApplications().filter(
@@ -21,12 +24,13 @@ const useStartMenuStore = create<ModalState>((set) => ({
   ),
   filter: "",
   filterPinnedItems: (value: string) =>
-    set((state) => ({
+    set((state: { pinnedApps: Applications[] }) => ({
       pinnedAppsFiltered:
         value == ""
           ? state.pinnedApps
           : state.pinnedApps.filter(
-              (app) => app.name.includes(value) || app.key.includes(value)
+              (app: { name: string | string[]; key: string | string[] }) =>
+                app.name.includes(value) || app.key.includes(value)
             ),
       filter: value,
     })),

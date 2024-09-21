@@ -1,4 +1,4 @@
-import { AppWindowState } from "@/components/common/TaskbarCenter";
+import { AppWindowState } from "@/components/desktop/TaskbarCenter";
 import { IcEdgeVariant } from "@/components/icons/apps/IcEdge";
 import IcExcel from "@/components/icons/apps/IcExcel";
 import IcExplorer from "@/components/icons/apps/IcExplorer";

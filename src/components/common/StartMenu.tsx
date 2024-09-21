@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { memo, useRef } from "react";
 import { RiShutDownLine } from "react-icons/ri";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { ChevronRightIcon } from "@radix-ui/react-icons";
@@ -11,9 +11,9 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { Button } from "../ui/button";
 import IcSearch from "../icons/apps/IcSearch";
 import AppButton from "./AppButton";
+import { useAuth, useSession } from "@clerk/clerk-react";
 
 function StartMenu() {
   const closeStartMenu = useStartMenuStore((state) => state.closeModal);
@@ -24,7 +24,7 @@ function StartMenu() {
   const filterValue = useStartMenuStore((state) => state.filter);
   const ref = useRef(null);
   // eslint-disable-next-line react-compiler/react-compiler
-  useOnClickOutside(ref, closeStartMenu);
+  // useOnClickOutside(ref, closeStartMenu);
 
   if (!startMenuOpen) {
     return <></>;
@@ -37,7 +37,7 @@ function StartMenu() {
           <PinnedApps />
         </div>
       </div>
-      <div className="h-16 px-5 flex justify-between items-center  absolute bottom-0 left-0 min-w-full">
+      <div className="h-16 px-5 bg-white bg-opacity-50 flex justify-between items-center absolute bottom-0 left-0 min-w-full rounded-br-lg rounded-bl-lg">
         <Footer />
       </div>
     </div>
@@ -106,17 +106,15 @@ const PinnedApps = () => {
         {pinnedApplicationsFiltered.map((app) => (
           <div
             key={app.key}
-            className="flex flex-col items-center justify-center align-middle"
+            className="flex flex-col items-center justify-center align-middle hover:bg-white hover:bg-opacity-70 hover:drop-shadow-sm rounded-sm cursor-pointer"
           >
             <AppButton
               key={app.key}
-              className="startmenu-app transition-transform duration-300 transform hover:scale-110"
+              className="startmenu-app flex-col h-14 w-10"
             >
               <app.icon />
+              <span className="text-gray-700 text-xs pt-1">{app.name}</span>
             </AppButton>
-            <span className="text-gray-700 text-xs pt-1 cursor-pointer">
-              {app.name}
-            </span>
           </div>
         ))}
       </div>
@@ -125,11 +123,15 @@ const PinnedApps = () => {
 };
 
 const ProfileAvatar = () => {
-  const userName = "Rahul Sharma";
+  const { session } = useSession();
+  const userName =
+    session?.publicUserData.firstName ??
+    "" + " " + session?.publicUserData.lastName ??
+    "";
   return (
     <div className="flex justify-center items-center gap-3 pl-5">
       <Avatar className="w-8 h-8">
-        <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+        <AvatarImage src={session?.publicUserData.imageUrl} alt={userName} />
         <AvatarFallback>
           {userName
             .split(" ")
@@ -143,6 +145,7 @@ const ProfileAvatar = () => {
 };
 
 const Footer = () => {
+  const auth = useAuth();
   return (
     <>
       <ProfileAvatar />
@@ -158,7 +161,10 @@ const Footer = () => {
             <DropdownMenuItem className="rounded-lg cursor-pointer">
               Sleep
             </DropdownMenuItem>
-            <DropdownMenuItem className="rounded-lg cursor-pointer">
+            <DropdownMenuItem
+              className="rounded-lg cursor-pointer"
+              onClick={() => { console.log({ auth }); auth.signOut() }}
+            >
               Shutdown
             </DropdownMenuItem>
             <DropdownMenuItem className="rounded-lg cursor-pointer">
@@ -171,4 +177,4 @@ const Footer = () => {
   );
 };
 
-export default StartMenu;
+export default memo(StartMenu);
