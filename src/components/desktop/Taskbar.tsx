@@ -1,6 +1,6 @@
-import CurrentWeather from "@/components/common/TaskbarLeft";
-import TaskbarCenter from "@/components/common/TaskbarCenter";
-import TaskbarRight from "../common/TaskbarRight";
+import CurrentWeather from "@/components/desktop/TaskbarLeft";
+import TaskbarCenter from "@/components/desktop/TaskbarCenter";
+import TaskbarRight from "./TaskbarRight";
 
 const Taskbar = () => {
   return (
